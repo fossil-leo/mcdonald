@@ -233,7 +233,17 @@ document.addEventListener('DOMContentLoaded', () => {
         moveToTray(foodName, element) {
             this.tray.push(foodName);
             this.dom.trayItems.appendChild(element);
-            element.onclick = null; // Prevent moving back
+            element.addEventListener('click', () => {
+                // Remove from tray array
+                const index = this.tray.indexOf(foodName);
+                if (index > -1) {
+                    this.tray.splice(index, 1);
+                }
+                // Remove from DOM
+                element.remove();
+                // Update UI
+                this.updateUI();
+            });
 
             element.addEventListener('contextmenu', (e) => {
                 e.preventDefault();
