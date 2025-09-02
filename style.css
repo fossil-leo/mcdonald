@@ -440,8 +440,6 @@ h1 svg {
     height: 200px;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    border: 3px solid #ffc72c;
 }
 
 #mcbot-image {
