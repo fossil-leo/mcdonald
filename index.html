@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McDonald's Tycoon - Remake</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-screen">
+        <h1>로그인</h1>
+        <input type="text" id="username-input" placeholder="아이디">
+        <input type="password" id="password-input" placeholder="비밀번호">
+        <button id="login-btn">로그인 및 저장</button>
+        <p id="login-message" style="color: red;"></p>
+    </div>
+
+    <div id="tutorial-screen" style="display: none;">
+        <h1>튜토리얼</h1>
+        <p>
+            <b>McDonald's Tycoon - Remake</b><br><br>
+            <b>게임 소개</b><br>
+            "McDonald's Tycoon - Remake"는 플레이어가 자신만의 맥도날드 매장을 운영하며 성공적인 타이쿤이 되는 것을 목표로 하는 경영 시뮬레이션 게임입니다. 재료를 관리하고, 주문을 처리하며, 고객을 만족시켜 매장을 성장시키세요!<br><br>
+            <b>주요 기능</b><br>
+            *   <b>재료 관리:</b> 햄버거 빵, 패티, 감자, 컵 등 다양한 재료를 재고 관리하고 필요할 때 보충하세요.<br>
+            *   <b>주문 처리:</b> 고객의 주문을 받고, 주방에서 햄버거를 만들고 감자튀김을 튀기며 음료를 준비하세요.<br>
+            *   <b>시간 관리:</b> 제한된 시간 안에 최대한 많은 고객을 응대하여 목표 수익을 달성하세요.<br>
+            *   <b>수익 창출:</b> 고객에게 음식을 제공하여 현금을 벌고, 매장을 확장하고 업그레이드하세요.<br><br>
+            <b>플레이 방법</b><br>
+            1.  <b>재료 확인:</b> 인벤토리에서 현재 재료 재고를 확인하세요. 재료가 부족하면 'Restock' 버튼을 눌러 보충할 수 있습니다.<br>
+            2.  <b>주문 받기:</b> 고객이 줄을 서면, 그들의 주문을 확인하세요.<br>
+            3.  <b>요리 및 조립:</b><br>
+                *   <b>그릴:</b> 햄버거 패티를 굽습니다.<br>
+                *   <b>튀김기:</b> 감자튀김을 만듭니다.<br>
+                *   <b>음료 기계:</b> 음료를 준비합니다.<br>
+                *   <b>조립 구역:</b> 준비된 재료로 햄버거를 조립하고, 감자튀김과 음료를 쟁반에 담습니다.<br>
+            4.  <b>서빙:</b> 모든 음식이 준비되면 'Serve Order' 버튼을 눌러 고객에게 제공하고 수익을 얻습니다.<br>
+            5.  <b>목표 달성:</b> 매일 주어지는 목표 현금을 달성하여 다음 날로 진행합니다.<br><br>
+            <b>사용 기술</b><br>
+            *   HTML5<br>
+            *   CSS3<br>
+            *   JavaScript (Vanilla JS)<br>
+            *   SVG (Scalable Vector Graphics) for icons<br><br>
+            <b>만든 사람: 김범준</b>
+        </p>
+        <button id="start-game-btn">다음</button>
+    </div>
+
+    <div id="consent-form" style="display: none;">
+        <h1>게임 이용 동의서</h1>
+        <p>
+            본 게임 "McDonald's Tycoon - Remake"를 이용해 주셔서 감사합니다. 게임을 시작하기 전에 다음 사항에 동의해 주시기 바랍니다.<br><br>
+            1.  <b>데이터 수집:</b> 본 게임은 사용자 개인 정보를 수집하지 않습니다. 게임 진행 데이터(점수, 진행 상황 등)는 브라우저 내에만 저장되며, 외부 서버로 전송되지 않습니다.<br>
+            2.  <b>책임의 한계:</b> 본 게임은 오락 목적으로만 제공됩니다. 게임 이용으로 인해 발생하는 어떠한 직간접적인 손해에 대해서도 개발자는 책임을 지지 않습니다.<br>
+            3.  <b>저작권:</b> 본 게임의 모든 콘텐츠(코드, 그래픽, 사운드 등)는 개발자에게 저작권이 있습니다. 무단 복제, 배포, 수정은 금지됩니다.<br>
+            4.  <b>버그 및 오류:</b> 게임 내에 버그나 오류가 발생할 수 있습니다. 개발자는 이를 수정하기 위해 노력할 것이나, 완벽한 작동을 보장하지는 않습니다.
+        </p>
+        <button id="agree-btn">동의</button>
+        <button id="disagree-btn">비동의</button>
+    </div>
+
+    <div id="game-content" style="display: none;">
+        <div id="game-header">
+            <h1>McDonald's Tycoon <svg width="30" height="30" viewBox="0 0 24 24" fill="#FFC72C" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9C5 11.38 6.19 13.47 8 14.74V17C8 17.55 8.45 18 9 18H15C15.55 18 16 17.55 16 17V14.74C17.81 13.47 19 11.38 19 9C19 5.13 15.87 2 12 2ZM12 16C11.45 16 11 15.55 11 15V14H13V15C13 15.55 12.55 16 12 16ZM12 4C14.76 4 17 6.24 17 9C17 10.54 16.37 11.94 15.32 12.95L14.5 13.77V14H9.5L8.68 13.77C7.63 11.94 7 10.54 7 9C7 6.24 9.24 4 12 4Z" fill="#FFC72C"/><path d="M10 20H14V22H10V20Z" fill="#FFC72C"/></svg></h1>
+            <div id="game-stats">
+                <span>Player: <span id="player-name"></span></span>
+                <span>Day: <span id="day-counter">1</span></span>
+                <span>Time Left: <span id="timer">180</span>s</span>
+                <span>Cash: $<span id="cash">0</span></span>
+                <span>Goal: $<span id="goal">100</span></span>
+            </div>
+        </div>
+
+        <div id="game-world">
+            <div id="left-panel">
+                <div id="inventory">
+                    <h2>Ingredients</h2>
+                    <div id="inventory-list">
+                        <p>Buns: <span id="buns-stock">10</span></p>
+                        <p>Patties: <span id="patties-stock">10</span></p>
+                        <p>Potatoes: <span id="potatoes-stock">10</span></p>
+                        <p>Cups: <span id="cups-stock">10</span></p>
+                    </div>
+                    <button id="restock-btn">Restock (Cost: $50)</button>
+                </div>
+                <div id="customer-area">
+                    <h2>Customers</h2>
+                    <div id="customer-queue"></div>
+                </div>
+            </div>
+
+            <div id="main-panel">
+                <div id="kitchen">
+                    <h2>Kitchen</h2>
+                    <div class="station" id="grill">
+                        <div class="station-label">Grill</div>
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="station" id="fryer">
+                        <div class="station-label">Fryer</div>
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="station" id="drink-machine">
+                        <div class="station-label">Drinks</div>
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+                <div id="counter">
+                    <h2>Assembly & Serving</h2>
+                    <div id="assembly-area"></div>
+                    <div id="tray-area">
+                        <h3>Tray</h3>
+                        <div id="tray-items"></div>
+                    </div>
+                    <button id="serve-btn" disabled>Serve Order</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal" class="hidden">
+            <div id="modal-content">
+                <h2 id="modal-title"></h2>
+                <p id="modal-text"></p>
+                <button id="modal-btn">Start Next Day</button>
+            </div>
+        </div>
+
+        <div id="burger-modal" class="hidden">
+            <div id="burger-modal-content">
+                <h2>Build a Burger!</h2>
+                <p id="recipe-display">Recipe: Bottom Bun, Patty, Top Bun</p>
+                <div id="burger-stack-area">
+                    <!-- Ingredients will be added here by JS -->
+                </div>
+                <div id="ingredient-options">
+                    <button data-ingredient="Bottom Bun">Bottom Bun</button>
+                    <button data-ingredient="Patty">Patty</button>
+                    <button data-ingredient="Cheese">Cheese</button>
+                    <button data-ingredient="Lettuce">Lettuce</button>
+                    <button data-ingredient="Tomato">Tomato</button>
+                    <button data-ingredient="Top Bun">Top Bun</button>
+                </div>
+                <div id="burger-controls">
+                    <button id="finish-burger-btn">Finish Burger</button>
+                    <button id="reset-burger-btn">Reset</button>
+                    <button id="cancel-burger-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="fryer-modal" class="hidden">
+            <div id="fryer-modal-content">
+                <h2>Fry Time!</h2>
+                <p>Fries Dropped: <span id="fries-dropped-count">0</span>/5</p>
+                <div id="fryer-game-area">
+                    <div id="fryer-basket"></div>
+                    <div id="fry-drop-indicator"></div>
+                </div>
+                <button id="drop-fry-btn">Drop Fry</button>
+                <button id="cancel-fryer-btn">Cancel</button>
+            </div>
+        </div>
+
+        <div id="drink-modal" class="hidden">
+            <div id="drink-modal-content">
+                <h2>Make a Drink!</h2>
+                <p id="drink-recipe-display">Recipe: Cup, Ice, Syrup</p>
+                <div id="blender-area">
+                    <!-- Ingredients will be added here by JS -->
+                </div>
+                <div id="drink-ingredient-options">
+                    <button data-ingredient="Cup">Cup</button>
+                    <button data-ingredient="Ice">Ice</button>
+                    <button data-ingredient="Syrup">Syrup</button>
+                    <button data-ingredient="Orange">Orange</button>
+                </div>
+                <div id="drink-controls">
+                    <button id="finish-drink-btn">Finish Drink</button>
+                    <button id="reset-drink-btn">Reset</button>
+                    <button id="cancel-drink-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="character-container">
+        <div id="mcbot-container">
+            <img id="mcbot-image" src="./figures/macbot.png" alt="McBot Character">
+        </div>
+        <div class="video-container">
+            <video class="character-video" autoplay loop muted>
+                <source src="./figures/macbot1.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="video-container">
+            <video class="character-video" autoplay loop muted>
+                <source src="./figures/timsolution.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>

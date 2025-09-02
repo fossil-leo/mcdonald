@@ -1,0 +1,509 @@
+/* General Setup */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #ffc72c;
+    color: #27251f;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #dba100;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Header */
+#game-header {
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#game-stats {
+    display: flex;
+    justify-content: space-around;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Game World */
+#game-world {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    gap: 20px;
+}
+
+#left-panel, #main-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#left-panel { flex: 1; }
+#main-panel { flex: 3; }
+
+/* Common Panel Styles */
+#inventory, #customer-area, #kitchen, #counter {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 0;
+}
+
+h1 svg {
+    vertical-align: middle;
+}
+
+/* Inventory & Customers */
+#inventory-list p { margin: 5px 0; }
+#restock-btn { width: 100%; margin-top: 10px; }
+#customer-queue { min-height: 150px; }
+
+.customer {
+    background: #fff0c7;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.customer.selected {
+    border-color: #ffc72c;
+}
+
+/* Kitchen */
+#kitchen {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.station {
+    width: 100px;
+    height: 100px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden; /* For progress bar */
+}
+
+.station .progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 0%;
+    width: 100%;
+    background-color: #4caf50;
+    opacity: 0.5;
+    transition: height 0.1s linear;
+}
+
+/* Counter */
+#assembly-area, #tray-items {
+    min-height: 60px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+#tray-area { margin-top: 15px; }
+#serve-btn { width: 100%; margin-top: 10px; }
+
+.food-item {
+    padding: 5px 10px;
+    background: #ffc72c;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Modal */
+#modal, #burger-modal, #fryer-modal, #drink-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#modal.hidden, #burger-modal.hidden, #fryer-modal.hidden, #drink-modal.hidden {
+    display: none;
+}
+
+#modal-content, #burger-modal-content, #fryer-modal-content, #drink-modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 400px;
+}
+
+/* Burger Modal Specifics */
+#burger-stack-area {
+    width: 200px;
+    height: 250px;
+    margin: 15px auto;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column-reverse; /* Stack from bottom up */
+    align-items: center;
+}
+
+.burger-ingredient {
+    width: 85%; /* Unified width */
+    height: 20px;
+    margin-bottom: 2px;
+    position: relative; /* Needed for pseudo-elements like seeds */
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+}
+
+.burger-ingredient.bottom-bun {
+    background: linear-gradient(to top, #d2a679, #eac9a8);
+    height: 30px;
+    border-radius: 5px 5px 10px 10px;
+    border-bottom: 2px solid #a57e54;
+}
+
+.burger-ingredient.patty {
+    background: radial-gradient(circle, #6a381f, #4d2410);
+    height: 40px;
+    border-radius: 15px;
+    box-shadow: inset 0 0 5px #331a0c;
+}
+
+.burger-ingredient.cheese {
+    background: #ffdb58;
+    height: 10px;
+    border-radius: 3px;
+}
+
+.burger-ingredient.lettuce {
+    background: linear-gradient(to right, #8acc8a, #90ee90);
+    height: 15px;
+    border-radius: 10px 5px 15px 5px / 5px 10px 5px 15px; /* Wavy shape */
+}
+
+.burger-ingredient.tomato {
+    background: radial-gradient(circle, #ff7f50, #ff6347);
+    height: 18px;
+    border-radius: 10px; /* Changed from 50% to make it a rounded rectangle */
+    border: 1px solid #e5533d;
+}
+
+.burger-ingredient.top-bun {
+    background-image:
+        radial-gradient(3px 3px at 25% 15px, #fffaf0 100%, transparent),
+        radial-gradient(3px 3px at 45% 20px, #fffaf0 100%, transparent),
+        radial-gradient(3px 3px at 65% 12px, #fffaf0 100%, transparent),
+        radial-gradient(3px 3px at 80% 22px, #fffaf0 100%, transparent),
+        linear-gradient(to bottom, #eac9a8, #d2a679);
+    background-repeat: no-repeat;
+    height: 40px;
+    border-radius: 30px 30px 5px 5px;
+    border-top: 2px solid #f0d7b5;
+}
+
+#recipe-display {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #d9534f;
+    margin-bottom: 10px;
+}
+
+#ingredient-options, #burger-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow buttons to wrap */
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Fryer Modal Specifics */
+#fryer-game-area {
+    width: 300px;
+    height: 200px;
+    border: 2px solid #ccc;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+#fryer-basket {
+    width: 100px;
+    height: 80px;
+    background-color: #8b4513;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden; /* To contain dropped fries */
+}
+
+.dropped-fry {
+    width: 10px;
+    height: 70px;
+    background-color: #ffc72c;
+    border-radius: 3px;
+    margin: 2px;
+    float: left; /* Arrange fries in the basket */
+}
+
+#fry-drop-indicator {
+    width: 20px;
+    height: 20px;
+    background-color: #ffc72c;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: moveIndicator 2s linear infinite alternate;
+}
+
+@keyframes moveIndicator {
+    from { left: 0; }
+    to { left: calc(100% - 20px); }
+}
+
+/* Drink Modal Specifics */
+#drink-modal-content h2 {
+    color: #007bff; /* Blue color for drink theme */
+}
+
+#blender-area {
+    width: 150px;
+    height: 200px;
+    margin: 15px auto;
+    background: #e0f7fa;
+    border: 2px solid #007bff;
+    border-radius: 10px 10px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Ingredients fill from the bottom */
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#blender-area::before {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 10px;
+    background: #ccc;
+    border-radius: 5px;
+}
+
+.drink-ingredient {
+    width: 100%;
+    height: 30px;
+    opacity: 0.8;
+}
+
+.drink-ingredient.cup { background-color: #ffffff; border-top: 2px solid #ccc; height: 100%; }
+.drink-ingredient.ice { background-color: #aedff7; height: 40px; }
+.drink-ingredient.syrup { background-color: #ff6347; height: 50px; }
+.drink-ingredient.orange { background-color: #ffa500; height: 35px; }
+
+
+#drink-ingredient-options, #drink-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+
+/* Login, Tutorial, Consent Screens */
+#login-screen, #tutorial-screen, #consent-form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#login-screen input {
+    display: block;
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#login-screen button {
+    margin: 5px;
+}
+
+#tutorial-screen p, #consent-form p {
+    text-align: left;
+    line-height: 1.6;
+}
+
+#tutorial-screen b, #consent-form b {
+    color: #28a745; /* Green */
+}
+
+#consent-form button {
+    margin: 10px;
+}
+
+#consent-form #agree-btn {
+    background-color: #28a745; /* Green */
+    color: white;
+}
+
+#consent-form #disagree-btn {
+    background-color: #dc3545; /* Red */
+    color: white;
+}
+
+
+
+/* Character Container */
+#character-container {
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    z-index: 99;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+#mcbot-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 3px solid #ffc72c;
+}
+
+.video-container {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 3px solid #ffc72c;
+}
+
+#mcbot-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.character-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    body {
+        padding: 5px;
+    }
+
+    #game-world {
+        flex-direction: column;
+    }
+
+    #game-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #kitchen {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .station {
+        width: 80px;
+        height: 80px;
+    }
+
+    #modal-content, #burger-modal-content, #fryer-modal-content, #drink-modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    #burger-stack-area {
+        height: 200px;
+    }
+
+    #fryer-game-area {
+        width: 90%;
+    }
+
+    #login-screen, #tutorial-screen, #consent-form {
+        width: 90%;
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    #mcbot-container {
+        width: 120px;
+        height: 120px;
+        bottom: 10px;
+        left: 10px;
+    }
+}
