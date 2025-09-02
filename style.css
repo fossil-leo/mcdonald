@@ -421,6 +421,7 @@ h1 svg {
     left: 15px;
     z-index: 99;
     display: flex;
+    flex-direction: column;
     gap: 10px;
     align-items: flex-end;
 }
